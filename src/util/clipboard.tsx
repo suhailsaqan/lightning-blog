@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import copy from 'copy-to-clipboard';
+import { useState, useEffect } from "react";
+import copy from "copy-to-clipboard";
 
 type CopyParams = {
   successDuration?: number;

@@ -1,6 +1,6 @@
 import rateLimit from "express-rate-limit";
 import Cors from "cors";
-import { getIp } from "src/helpers";
+import { getIp } from "../helpers";
 import { Request, Response } from "express";
 
 const cors = Cors({ origin: "*" });
