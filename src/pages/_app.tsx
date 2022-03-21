@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
           {process.env["WEBPAGENAME"] || "Replit Lightning Payment"}
         </title>
       </Head>
-      <Style />
+      {/* <Style /> */}
       <Component {...pageProps} />
     </QueryClientProvider>
   );
