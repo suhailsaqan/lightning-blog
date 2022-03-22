@@ -35,7 +35,7 @@ export const LndApi = {
         headers,
         body: JSON.stringify({
           value,
-          memo: "Replit Lightning Tip Invoice",
+          memo: "Blog Post",
           description_hash: hash,
         }),
       });
