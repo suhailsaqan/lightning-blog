@@ -1,5 +1,4 @@
-module.exports = ({
-  pageExtensions: ["tsx"],
+module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.module.rules.push(
       ...[
@@ -14,6 +13,11 @@ module.exports = ({
         },
       ]
     );
+    if (!isServer) {
+      config.node = {
+        fs: "empty",
+      };
+    }
     return config;
   },
-});
+};
