@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
         <title>
-          {process.env["WEBPAGENAME"] || "Replit Lightning Payment"}
+          {process.env["WEBPAGENAME"] || "Lightning Blog"}
         </title>
       </Head>
       {/* <Style /> */}
