@@ -1,9 +1,9 @@
-import { toWithError } from "src/helpers";
+import { toWithError } from "../../../helpers";
 import { Request, Response } from "express";
-import { LndApi } from "src/api";
-import { middlewares } from "src/helpers/express";
-import { getHash } from "src/util/crypto";
-import { env, lightning_memo } from "src/helpers/env";
+import { LndApi } from "../../../api";
+import { middlewares } from "../../../helpers/express";
+import { getHash } from "../../../util/crypto";
+import { env, lightning_memo } from "../../../helpers/env";
 import { encode } from "utf8";
 import prisma from "../../../lib/prisma";
 import { v4 as uuidv4 } from "uuid";
@@ -16,6 +16,8 @@ export default async function handler(req: Request, res: Response) {
   const {
     query: { amount, slug },
   } = req;
+
+  console.log(amount, slug);
 
   if (!amount || typeof amount !== "string" || isNaN(Number(amount))) {
     res.status(200).json({ status: "ERROR", reason: "Invalid amount" });
@@ -42,24 +44,30 @@ export default async function handler(req: Request, res: Response) {
     LndApi.getInvoice(value, shaHash)
   );
 
+  console.log(invoice);
+
   if (error || !invoice?.payment_request) {
     console.log("Error creating invoice: ", { error, invoice });
     res.status(200).json({ status: "ERROR", reason: "ErrorCreatingInvoice" });
     return;
   }
 
-  const response = {
-    pr: invoice.payment_request,
-  };
-
   const uid = uuidv4();
 
   const paid = await prisma.post.create({
     data: {
       slug: slug,
-      id: uid,
+      uid: uid,
     },
   });
+
+  console.log(paid);
+
+  const response = {
+    pr: invoice.payment_request,
+    slug: paid.slug,
+    uid: paid.uid,
+  };
 
   res.status(200).json(response);
 }
