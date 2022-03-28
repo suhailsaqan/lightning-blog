@@ -149,7 +149,6 @@ export const Main = ({}: {}) => {
   );
 };
 
-export default function Post({}: Props) {
-  // const content = hydrate(source, { components });
+export default function Post() {
   return <Main />;
 }
