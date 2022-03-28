@@ -1,0 +1,54 @@
+.md-side-toolbar {
+  position: relative;
+  display: flex;
+}
+
+.md-sb-button {
+  padding: 0;
+  background: #fff;
+  border: 1px solid #aaa;
+  color: #000;
+  cursor: pointer;
+  height: 36px;
+  width: 36px;
+  border-radius: 18px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 2px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+}
+
+.md-sb-button::-moz-focus-inner {
+  padding: 0;
+}
+
+.md-sb-button > svg {
+  fill: currentColor;
+  transition: transform 0.1s;
+}
+
+.md-add-button--open > svg {
+  transform: rotate(45deg);
+}
+
+.md-sb-button-file-input {
+  display: none;
+}
+
+.mb-side-menu {
+  background: #fff;
+  display: flex;
+}
+
+.mb-side-menu-button {
+  padding: 12px 4px;
+  background: #fff;
+}
+
+.mb-side-menu-button:hover {
+  background: #cecece;
+}

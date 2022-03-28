@@ -1,0 +1,7 @@
+.md-block--quote {
+  border-left: 5px solid #4ca8de;
+  font-size: 1.2em;
+  margin: 0;
+  padding: 15px 0 15px 20px;
+  background-color: #e2f2ff;
+}

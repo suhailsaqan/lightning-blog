@@ -1,0 +1,32 @@
+.md-block-code {
+    background-color: #fdf6e3;
+    color: #657b83;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    tab-size: 4;
+    hyphens: none;
+}
+
+.md-block-code-settings {
+    position: absolute;
+    right: 0;
+    top: -20px;
+}
+
+.md-block-code-wrapper {
+    position: relative;
+    padding: 1em;
+}
+
+.md-block-code-wrapper::before {
+    content: attr(data-language);
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 1;
+}

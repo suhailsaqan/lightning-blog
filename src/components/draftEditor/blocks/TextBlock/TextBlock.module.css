@@ -1,0 +1,46 @@
+.md-content-editor {
+    cursor: text;
+}
+
+.md-content-editor--pointer .md-link {
+    cursor: pointer;
+}
+
+.md-content-editor h1 {
+    font-size: 2em;
+    margin: 25px 0 15px;
+}
+
+.md-content-editor h2 {
+    font-size: 1.3em;
+    margin: 25px 0 15px;
+}
+
+.md-content-editor h3 {
+    font-size: 1.15em;
+    margin: 25px 0 15px;
+}
+
+.md-content-editor hr {
+    margin: 15px 0 25px;
+    padding: 10px 0 0;
+    height: 0;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.md-content-editor mark {
+    background: yellow;
+}
+
+.md-content-editor h1, .md-content-editor h2, .md-content-editor h3 {
+    line-height: 1.2;
+}
+
+.md-content-editor h1:first-child, .md-content-editor h2:first-child, .md-content-editor h3:first-child {
+    margin-top: 0;
+}
+
+.md-content-editor h1:last-child, .md-content-editor h2:last-child, .md-content-editor h3:last-child {
+    margin-bottom: 0;
+}

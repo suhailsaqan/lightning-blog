@@ -1,0 +1,44 @@
+.md-block--atomic {
+    margin: 0;
+}
+
+.md-block--atomic img {
+    width: 100%;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+}
+
+.md-block-atomic-wrapper {
+    position: relative;
+}
+
+.md-block-atomic-controls {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: all 0.2s ease;
+}
+
+.md-block-atomic-controls button {
+    display: inline-block;
+    background-color: #EAEAEA;
+    border: none;
+    color: #6D6D6D;
+    cursor: pointer;
+    height: 22px;
+    width: 22px;
+    border-radius: 11px;
+    position: absolute;
+    z-index: 1;
+    left: -27px;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.md-block-atomic-controls button:focus {
+    outline: none;
+    border-color: #08c;
+    color: #08c;
+}

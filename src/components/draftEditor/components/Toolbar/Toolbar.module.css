@@ -1,0 +1,114 @@
+.md-editor-toolbar {
+  background: #0b3827;
+  color: #fff;
+  border-radius: 8px;
+  z-index: 2;
+  position: absolute;
+  box-shadow: 0 1px 3px 0 #717171;
+  margin-top: -5px;
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.md-editor-toolbar .md-url-input {
+  box-sizing: border-box;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 56px);
+  height: 56px;
+  padding: 5px 11px 5px 11px;
+  border: none;
+  background: #0b3827;
+  color: #fff;
+  font-size: 0.9em;
+  font-weight: 100;
+  border-right: 1px solid #555;
+  outline: none;
+}
+
+.md-editor-toolbar .md-url-input-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  background: #0b3827;
+}
+
+.md-toolbar-controls {
+  font-size: 14px;
+  border-right: 1px solid #555;
+  display: inline-flex;
+  vertical-align: center;
+}
+
+.md-toolbar-controls:last-child {
+  border-right: none;
+}
+
+.md-toolbar-controls.md-toolbar-controls--show-input {
+  display: flex;
+  flex: 1;
+}
+
+.md-toolbar-button {
+  color: inherit;
+  cursor: pointer;
+  padding: 6px;
+  height: 56px;
+  width: 56px;
+  line-height: 24px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 0;
+  box-sizing: border-box;
+}
+
+.md-toolbar-button:hover {
+  background: #0a3223;
+}
+
+.md-toolbar-button:active {
+  background: #0a3223;
+}
+
+.md-toolbar-button.md-toolbar-button--active {
+  background: #0a3223;
+}
+
+.md-toolbar-button.md-toolbar-button--active:hover {
+  background: #0a3223;
+}
+
+.md-toolbar-button.md-toolbar-button--active:active {
+  background: #0a3223;
+}
+
+.md-toolbar-button:last-child {
+  margin-right: 0;
+}
+
+.md-toolbar-button.md-toolbar-button--bold {
+  font-weight: bold;
+}
+
+.md-toolbar-button.md-toolbar-button--italic {
+  font-style: italic;
+}
+
+.md-toolbar-button.md-toolbar-button--underline {
+  text-decoration: underline;
+}
+
+.md-toolbar-button.md-toolbar-button--strikethrough {
+  text-decoration: line-through;
+}
+
+.md-toolbar-button > svg {
+  pointer-events: none;
+}
