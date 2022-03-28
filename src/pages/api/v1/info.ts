@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { middlewares } from "src/helpers/express";
-import { env } from "src/helpers/env";
+import { middlewares } from "../../../helpers/express";
+import { env } from "../../../helpers/env";
 
 export default async function handler(req: Request, res: Response) {
   await middlewares(req, res);
