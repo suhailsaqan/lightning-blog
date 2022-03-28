@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { middlewares } from "src/helpers/express";
 import prisma from "../../../lib/prisma";
 import { toWithError } from "src/helpers";
-import { LndApi } from "src/api";
+import { LndApi } from "../../../api";
 import getHash from "../../../util/crypto";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -31,6 +31,6 @@ export default async function handler(req: Request, res: Response) {
       return;
     }
   } else {
-      res.status(200).json({ status: "Fail" });
+    res.status(200).json({ status: "Fail" });
   }
 }
