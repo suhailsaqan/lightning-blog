@@ -17,8 +17,6 @@ export default async function handler(req: Request, res: Response) {
     query: { amount, slug },
   } = req;
 
-  console.log(amount, slug);
-
   if (!amount || typeof amount !== "string" || isNaN(Number(amount))) {
     res.status(200).json({ status: "ERROR", reason: "Invalid amount" });
     return;
@@ -44,8 +42,6 @@ export default async function handler(req: Request, res: Response) {
     LndApi.getInvoice(value, shaHash)
   );
 
-  console.log(invoice);
-
   if (error || !invoice?.payment_request) {
     console.log("Error creating invoice: ", { error, invoice });
     res.status(200).json({ status: "ERROR", reason: "ErrorCreatingInvoice" });
@@ -54,14 +50,14 @@ export default async function handler(req: Request, res: Response) {
 
   const uid = uuidv4();
 
-  const paid = await prisma.post.create({
+  const paid = await prisma.payment.create({
     data: {
       slug: slug,
       uid: uid,
+      invoice_hash: invoice.r_hash,
+      invoice: invoice.payment_request,
     },
   });
-
-  console.log(paid);
 
   const response = {
     pr: invoice.payment_request,
