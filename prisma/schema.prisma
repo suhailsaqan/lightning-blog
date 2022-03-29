@@ -8,6 +8,17 @@ datasource db {
 }
 
 model Post {
-  uid       String    @id 
-  slug      String
+  uid       String      @id 
+  slug      String      @unique
+  title     String?
+  text      String?
+  published Boolean?     @default(false)
+  price     Int?
+}
+
+model Payment {
+  uid           String      @id 
+  slug          String      
+  invoice_hash  String?     @unique
+  invoice       String?     @unique
 }
