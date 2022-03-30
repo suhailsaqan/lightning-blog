@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { middlewares } from "src/helpers/express";
+import { middlewares } from "../../../helpers/express";
 import prisma from "../../../lib/prisma";
-import { toWithError } from "src/helpers";
+import { toWithError } from "../../../helpers";
 import { LndApi } from "../../../api";
 import getHash from "../../../util/crypto";
 
