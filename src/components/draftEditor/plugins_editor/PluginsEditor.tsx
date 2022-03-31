@@ -326,7 +326,6 @@ export class PluginsEditor extends React.PureComponent<PluginEditorProps> {
       const decorator = this.pluginDecorators(plugins);
 
       if (decorator !== editorState.getDecorator()) {
-        console.log("********");
         this.onChange(
           EditorState.set(editorState, {
             decorator,
