@@ -95,7 +95,7 @@ export class AddButton extends React.Component<AddButtonProps, AddButtonState> {
             );
           })}
         </div>
-        <style jsx>{`
+        <style jsx global>{`
           .md-side-toolbar {
             position: relative;
             display: flex;

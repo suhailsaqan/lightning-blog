@@ -1,5 +1,5 @@
-@import "../../../node_modules/draft-js/dist/Draft.css";
-@import "blocks/BlockQuote/BlockQuote.module.css";
+/* @import "../node_modules/draft-js/dist/Draft.css";
+@import "blocks/BlockQuote/BlockQuote.css"; */
 
 .md-root {
   position: relative;

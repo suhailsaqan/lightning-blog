@@ -114,6 +114,36 @@ export class MediumDraftEditor extends React.PureComponent<
           onTooltipShow={this.onLinkTooltipShow}
           onTooltipHide={this.onLinkTooltipHide}
         />
+        <style jsx global>{`
+          .md-root {
+            position: relative;
+          }
+
+          .md-block {
+            margin: 15px 0;
+          }
+
+          .md-block:first-child {
+            margin-top: 0;
+          }
+
+          .md-block:last-child {
+            margin-bottom: 0;
+          }
+
+          .md-RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+            display: none;
+          }
+
+          .md-content-editor .public-DraftStyleDefault-pre {
+            margin-top: 10px;
+          }
+
+          .public-DraftStyleDefault-unorderedListItem,
+          .public-DraftStyleDefault-orderedListItem {
+            margin-bottom: 10px;
+          }
+        `}</style>
       </div>
     );
   }

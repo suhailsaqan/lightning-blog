@@ -179,14 +179,14 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
               value={urlInputValue}
             />
           </div>
-          <style jsx>{`
+          <style jsx global>{`
             .md-editor-toolbar {
               background: #0b3827;
               color: #fff;
               border-radius: 8px;
               z-index: 2;
               position: absolute;
-              box-shadow: 0 1px 3px 0 #717171;
+              box-shadow: 0 1px 3px #717171;
               margin-top: -5px;
               display: flex;
               overflow: hidden;
@@ -340,14 +340,14 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             buttons={blockButtons}
           />
         ) : null}
-        <style jsx>{`
+        <style jsx global>{`
           .md-editor-toolbar {
             background: #0b3827;
             color: #fff;
             border-radius: 8px;
             z-index: 2;
             position: absolute;
-            box-shadow: 0 1px 3px 0 #717171;
+            box-shadow: 0 1px 3px #717171;
             margin-top: -5px;
             display: flex;
             overflow: hidden;

@@ -15,7 +15,7 @@ export class Tooltip extends React.PureComponent<TooltipProps> {
         style={{ left: this.props.left, top: this.props.top }}
       >
         {this.props.text}
-        <style jsx>{`
+        <style jsx global>{`
           .md-tooltip {
             position: absolute;
             background: #0b3827;
