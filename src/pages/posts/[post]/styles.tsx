@@ -4,6 +4,7 @@ export const IndexStyles = {
   wrapper: styled.div`
     height: 100vh;
     width: 100%;
+    max-width: 600px;
     display: flex;
     justify-content: center;
     align-items: center;

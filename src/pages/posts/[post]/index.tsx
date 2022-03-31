@@ -1,10 +1,12 @@
+import { GetServerSideProps } from "next";
+import prisma from "../../../lib/prisma";
 import QRcode from "qrcode.react";
 import { useState } from "react";
 import { useMutation } from "react-query";
-import { getInvoice } from "../../../api";
+import { getInvoice, getPostInfo } from "../../../api";
 import useCopyClipboard from "../../../util/clipboard";
 import styled from "styled-components";
-import { IndexStyles } from "./styles";
+import { IndexStyles as Style } from "./styles";
 import { fetchPostContent } from "../../../lib/posts";
 
 const S = {
@@ -109,46 +111,60 @@ const S = {
   `,
 };
 
-export const Main = ({}: {}) => {
-  // const [amount, setAmount] = useState<number>(Math.max(0, min));
+export default function Invoice({
+  price,
+  slug,
+}: {
+  price: number;
+  slug: string;
+}) {
   const [isCopied, copy] = useCopyClipboard({ successDuration: 3000 });
 
   const mutation = useMutation(getInvoice);
 
   if (mutation.error) {
     return (
-      <div>We Ran Into An Error Creating The Invoice. Please Try Again!</div>
+      <div>We ran into an error creating the invoice. Please try again!</div>
     );
   }
 
   if (mutation.data?.pr) {
     return (
       <>
-        <IndexStyles.copyButton onClick={() => copy(mutation.data.pr)}>
+        <Style.copyButton onClick={() => copy(mutation.data.pr)}>
           {isCopied ? (
-            <IndexStyles.copied>Copied</IndexStyles.copied>
+            <Style.copied>Copied</Style.copied>
           ) : (
-            <IndexStyles.copy>Click To Copy Invoice</IndexStyles.copy>
+            <Style.copy>Click To Copy Invoice</Style.copy>
           )}
           <QRcode value={mutation.data.pr} size={240} />
-        </IndexStyles.copyButton>
-        <IndexStyles.info>Scan QR Code</IndexStyles.info>
+        </Style.copyButton>
+        <Style.info>Scan QR Code</Style.info>
       </>
     );
   }
 
   return (
-    <>
+    <Style.wrapper>
       <S.button
         disabled={mutation.isLoading}
-        onClick={() => mutation.mutate({ amount: 1, slug: "hey" })}
+        onClick={() => mutation.mutate({ amount: price, slug: slug })}
       >
         Create an Invoice
       </S.button>
-    </>
+    </Style.wrapper>
   );
-};
-
-export default function Post() {
-  return <Main />;
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const slug = params.post;
+
+  const url = `http://localhost:3000/api/v1/postinfo?slug=${slug}`;
+
+  const res = await fetch(url);
+  const price = await res.json();
+
+  return {
+    props: { price, slug },
+  };
+};

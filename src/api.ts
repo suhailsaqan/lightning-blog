@@ -18,9 +18,12 @@ export const checkInvoice = ({
   id: string;
   invoice: string;
 }) =>
-  fetch(`/api/v1/paid?slug=${slug}&id=${id}&invoice=${invoice}`).then((res) =>
+  fetch(`/api/v1/post?slug=${slug}&id=${id}`).then((res) =>
     res.json()
   );
+
+export const getPostInfo = ({ slug }: { slug: string }) =>
+  fetch(`/api/v1/postinfo?slug=${slug}`).then((res) => res.json());
 
 export const LndApi = {
   getInvoice: async (value: number, hash: string) => {
@@ -63,7 +66,28 @@ export const LndApi = {
 
       return await response.json();
     } catch (error) {
-      console.log("Error generating invoice from LND", { error });
+      console.log("Error checking invoice from LND", { error });
+      throw new Error();
+    }
+  },
+  subscribeInvoice: async (hash: string) => {
+    try {
+      const headers = new Headers();
+      headers.set("Accept", "application/json");
+      headers.set("Content-Type", "application/json");
+      headers.set("Grpc-Metadata-macaroon", process.env["LND_MACAROON"] || "");
+
+      const response = await fetch(
+        `${process.env["LND_URL"]}/v1/invoices/subscribe/${hash}`,
+        {
+          method: "get",
+          headers,
+        }
+      );
+
+      return await response.json();
+    } catch (error) {
+      console.log("Error subscribing to invoice from LND", { error });
       throw new Error();
     }
   },
