@@ -28,7 +28,7 @@ export default async function handler(req: Request, res: Response) {
 
     if (error || !invoice?.payment_request) {
       console.error("Error checking invoice: ", { error, invoice });
-      res.status(200).json({ status: "ERROR", reason: "ErrorCheckingInvoice" });
+      res.status(400).json({ status: "ERROR", reason: "ErrorCheckingInvoice" });
       return;
     }
 

@@ -54,7 +54,7 @@ export default async function handler(req: Request, res: Response) {
     data: {
       slug: String(slug),
       uid: uid,
-      invoice_hash: Buffer.from(invoice.r_hash).toString("base64"),
+      invoice_hash: invoice.r_hash,
       invoice: invoice.payment_request,
     },
   });

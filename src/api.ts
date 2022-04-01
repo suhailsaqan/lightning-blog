@@ -56,7 +56,11 @@ export const LndApi = {
       headers.set("Content-Type", "application/json");
       headers.set("Grpc-Metadata-macaroon", process.env["LND_MACAROON"] || "");
 
-      const shaHash = Buffer.from(hash, "base64");
+      let shaHash = Buffer.from(hash, "base64").toString("base64");
+      shaHash = shaHash.replaceAll("+", "-");
+      shaHash = shaHash.replaceAll("/", "_");
+
+      console.log(hash, shaHash);
 
       const response = await fetch(
         `${process.env["LND_URL"]}/v1/invoice/?r_hash=${shaHash}`,
