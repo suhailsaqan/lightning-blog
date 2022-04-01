@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import QRcode from "qrcode.react";
 import { useMutation } from "react-query";
-import { getInvoice, getPostInfo } from "../../../api";
+import { getInvoice } from "../../../api";
 import useCopyClipboard from "../../../util/clipboard";
 import styled from "styled-components";
 import { IndexStyles as Style } from "../../../components/invoice_styles";
