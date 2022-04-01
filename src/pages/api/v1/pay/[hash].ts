@@ -1,9 +1,9 @@
-import { toWithError } from "src/helpers";
+import { toWithError } from "../../../../helpers";
 import { Request, Response } from "express";
-import { LndApi } from "src/api";
-import { middlewares } from "src/helpers/express";
-import { getHash } from "src/util/crypto";
-import { env, lightning_memo } from "src/helpers/env";
+import { LndApi } from "../../../../api";
+import { middlewares } from "../../../../helpers/express";
+import { getHash } from "../../../../util/crypto";
+import { env, lightning_memo } from "../../../../helpers/env";
 import { encode } from "utf8";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";

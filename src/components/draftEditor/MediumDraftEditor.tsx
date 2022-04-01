@@ -85,7 +85,7 @@ export class MediumDraftEditor extends React.PureComponent<
         <div className={editorClass} ref={this.contentEditorRef}>
           <PluginsEditor
             {...restProps}
-            readOnly={readOnly}
+            // readOnly={readOnly}
             ref={this.editorRef}
           />
         </div>

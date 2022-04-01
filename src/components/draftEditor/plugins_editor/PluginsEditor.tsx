@@ -58,6 +58,9 @@ export interface PluginEditorProps extends EditorProps {
   getParentMethods?: () => {
     getInput: (title: string) => Promise<string>;
   };
+  editorState: EditorState;
+  onChange: (editorState: EditorState) => void;
+  readOnly?: boolean;
 }
 
 export interface SimpleDecorator {

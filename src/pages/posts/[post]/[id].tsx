@@ -58,12 +58,8 @@ export default function Post({
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const post = await prisma.post.findUnique({
     where: {
-      id: String(params?.id),
-    },
-    include: {
-      author: {
-        select: { name: true, email: true },
-      },
+      // needs to be changed
+      slug: String(params?.id),
     },
   });
   return {

@@ -6,7 +6,7 @@ import { useMutation } from "react-query";
 import { getInvoice, getPostInfo } from "../../../api";
 import useCopyClipboard from "../../../util/clipboard";
 import styled from "styled-components";
-import { IndexStyles as Style } from "./styles";
+import { IndexStyles as Style } from "../../../components/invoice_styles";
 import { fetchPostContent } from "../../../lib/posts";
 
 const S = {
@@ -159,7 +159,10 @@ export default function Invoice({
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const slug = params.post;
 
+  // const url = `${window.location.href}/api/v1/postinfo?slug=${slug}`;
   const url = `http://localhost:3000/api/v1/postinfo?slug=${slug}`;
+
+  console.log(url);
 
   const res = await fetch(url);
   const price = await res.json();

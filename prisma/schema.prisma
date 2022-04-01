@@ -12,7 +12,6 @@ model Post {
   slug            String      @unique
   title           String?
   date            DateTime @default(now())
-  slug            String[]?
   author          String?
   description     String?
   text            String?

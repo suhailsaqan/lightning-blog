@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npx prisma generate && npx prisma db push && next start",
     "export": "next build && next export -o ./dist",
     "test": "jest"
   },

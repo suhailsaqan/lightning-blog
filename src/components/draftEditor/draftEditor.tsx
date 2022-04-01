@@ -92,7 +92,7 @@ export default class TextEditor extends React.Component<{}, State> {
           blockButtons={BLOCK_BUTTONS}
           sideButtons={this.sideButtons}
           toolbarEnabled={true}
-          spellCheck={true}
+          // spellCheck={true}
         />
         <style jsx global>{`
           .md-root {

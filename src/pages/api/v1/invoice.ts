@@ -52,7 +52,7 @@ export default async function handler(req: Request, res: Response) {
 
   const paid = await prisma.payment.create({
     data: {
-      slug: slug,
+      slug: String(slug),
       uid: uid,
       invoice_hash: invoice.r_hash,
       invoice: invoice.payment_request,

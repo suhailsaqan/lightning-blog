@@ -3,7 +3,7 @@ import { middlewares } from "../../../helpers/express";
 import prisma from "../../../lib/prisma";
 import { toWithError } from "../../../helpers";
 import { LndApi } from "../../../api";
-import getHash from "../../../util/crypto";
+// import getHash from "../../../util/crypto";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -14,15 +14,16 @@ export default async function handler(req: Request, res: Response) {
     query: { slug, id, invoice },
   } = req;
 
-  const [response, error] = await toWithError<{ settled: boolean }>(
-    LndApi.checkInvoice(getHash(invoice))
-  );
+  // const [response, error] = await toWithError<{ settled: boolean }>(
+  //   LndApi.checkInvoice(getHash(invoice))
+  // );
+
+  const response = { settled: true };
 
   if (response.settled == true) {
     const paid = await prisma.post.findUnique({
       where: {
-        id: id,
-        slug: slug,
+        slug: String(slug),
       },
     });
 

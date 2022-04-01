@@ -1,9 +1,9 @@
-import { getIp } from "src/helpers";
+import { getIp } from "../../helpers";
 import { Request, Response } from "express";
-import { getHash } from "src/util/crypto";
-import { middlewares } from "src/helpers/express";
-import { env, lightning_memo } from "src/helpers/env";
-import { Url } from "src/helpers/url";
+import { getHash } from "../../util/crypto";
+import { middlewares } from "../../helpers/express";
+import { env, lightning_memo } from "../../helpers/env";
+import { Url } from "../../helpers/url";
 
 export default async function handler(req: Request, res: Response) {
   await middlewares(req, res);
