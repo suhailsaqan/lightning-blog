@@ -1,13 +1,10 @@
 import { GetServerSideProps } from "next";
-import prisma from "../../../lib/prisma";
 import QRcode from "qrcode.react";
-import { useState } from "react";
 import { useMutation } from "react-query";
 import { getInvoice, getPostInfo } from "../../../api";
 import useCopyClipboard from "../../../util/clipboard";
 import styled from "styled-components";
 import { IndexStyles as Style } from "../../../components/invoice_styles";
-import { fetchPostContent } from "../../../lib/posts";
 
 const S = {
   separation: styled.div`
@@ -156,16 +153,16 @@ export default function Invoice({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params,
+}) => {
   const slug = params.post;
 
-  // const url = `${window.location.href}/api/v1/postinfo?slug=${slug}`;
-  const url = `http://localhost:3000/api/v1/postinfo?slug=${slug}`;
+  const url = `http://${req.headers.host}/api/v1/postinfo?slug=${slug}`;
 
-  console.log(url);
-
-  const res = await fetch(url);
-  const price = await res.json();
+  const resp = await fetch(url);
+  const price = await resp.json();
 
   return {
     props: { price, slug },
