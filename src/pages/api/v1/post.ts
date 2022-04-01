@@ -3,7 +3,6 @@ import { middlewares } from "../../../helpers/express";
 import prisma from "../../../lib/prisma";
 import { toWithError } from "../../../helpers";
 import { LndApi } from "../../../api";
-// import getHash from "../../../util/crypto";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -11,27 +10,44 @@ export default async function handler(req: Request, res: Response) {
   await middlewares(req, res);
 
   const {
-    query: { slug, id, invoice },
+    query: { slug, id },
   } = req;
 
-  // const [response, error] = await toWithError<{ settled: boolean }>(
-  //   LndApi.checkInvoice(getHash(invoice))
-  // );
+  const paymentInfo = await prisma.payment.findUnique({
+    where: {
+      uid: String(id),
+    },
+  });
 
-  const response = { settled: true };
+  if (paymentInfo) {
+    const [invoice, error] = await toWithError<{ invoice: string }>(
+      LndApi.checkInvoice(paymentInfo.invoice_hash)
+    );
 
-  if (response.settled == true) {
-    const paid = await prisma.post.findUnique({
-      where: {
-        slug: String(slug),
-      },
-    });
+    console.log("*********", invoice);
 
-    if (paid) {
-      res.status(200).json({ status: "Success" });
+    if (error || !invoice?.payment_request) {
+      console.error("Error checking invoice: ", { error, invoice });
+      res.status(200).json({ status: "ERROR", reason: "ErrorCheckingInvoice" });
       return;
     }
-  } else {
-    res.status(200).json({ status: "Fail" });
+
+    if (invoice.settled == true) {
+      const post = await prisma.post.findUnique({
+        where: {
+          slug: String(slug),
+        },
+      });
+
+      if (post) {
+        res.status(200).json(post);
+        return;
+      } else {
+        res.status(200).json({ status: "Post not found" });
+        return;
+      }
+    } else {
+      res.status(200).json({ status: "Invoice not paid" });
+    }
   }
 }

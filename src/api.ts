@@ -1,3 +1,6 @@
+import { getHash } from "./util/crypto";
+import { encode } from "utf8";
+
 export const getInvoice = ({
   amount,
   slug,
@@ -17,10 +20,7 @@ export const checkInvoice = ({
   slug: string;
   id: string;
   invoice: string;
-}) =>
-  fetch(`/api/v1/post?slug=${slug}&id=${id}`).then((res) =>
-    res.json()
-  );
+}) => fetch(`/api/v1/post?slug=${slug}&id=${id}`).then((res) => res.json());
 
 export const getPostInfo = ({ slug }: { slug: string }) =>
   fetch(`/api/v1/postinfo?slug=${slug}`).then((res) => res.json());
@@ -56,15 +56,19 @@ export const LndApi = {
       headers.set("Content-Type", "application/json");
       headers.set("Grpc-Metadata-macaroon", process.env["LND_MACAROON"] || "");
 
+      const shaHash = Buffer.from(hash, "base64");
+
       const response = await fetch(
-        `${process.env["LND_URL"]}/v1/invoice/${hash}`,
+        `${process.env["LND_URL"]}/v1/invoice/?r_hash=${shaHash}`,
         {
           method: "get",
           headers,
         }
       );
 
-      return await response.json();
+      const ret = await response.json();
+
+      return await ret;
     } catch (error) {
       console.log("Error checking invoice from LND", { error });
       throw new Error();

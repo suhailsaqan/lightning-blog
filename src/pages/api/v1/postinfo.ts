@@ -11,8 +11,6 @@ export default async function handler(req: Request, res: Response) {
     query: { slug },
   } = req;
 
-  console.log(slug);
-
   const postinfo = await prisma.post.findUnique({
     where: {
       slug: String(slug),

@@ -38,6 +38,8 @@ export default async function handler(req: Request, res: Response) {
 
   const shaHash = getHash(encode(lightning_memo), "base64");
 
+  console.log("odjwqnbdojkqnwldkn", shaHash);
+
   const [invoice, error] = await toWithError<{ payment_request: string }>(
     LndApi.getInvoice(value, shaHash)
   );
@@ -54,10 +56,12 @@ export default async function handler(req: Request, res: Response) {
     data: {
       slug: String(slug),
       uid: uid,
-      invoice_hash: invoice.r_hash,
+      invoice_hash: Buffer.from(invoice.r_hash).toString("base64"),
       invoice: invoice.payment_request,
     },
   });
+
+  console.log("payment uid:", uid);
 
   const response = {
     pr: invoice.payment_request,
