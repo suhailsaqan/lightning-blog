@@ -160,8 +160,8 @@ export const getServerSideProps: GetServerSideProps = async ({
   const slug = params.post;
 
   const url = `http://${req.headers.host}/api/v1/postinfo?slug=${slug}`;
-
   const resp = await fetch(url);
+
   const price = await resp.json();
 
   return {

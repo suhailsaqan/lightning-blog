@@ -38,8 +38,6 @@ export default async function handler(req: Request, res: Response) {
 
   const shaHash = getHash(encode(lightning_memo), "base64");
 
-  console.log("odjwqnbdojkqnwldkn", shaHash);
-
   const [invoice, error] = await toWithError<{ payment_request: string }>(
     LndApi.getInvoice(value, shaHash)
   );

@@ -24,7 +24,7 @@ export default async function handler(req: Request, res: Response) {
       LndApi.checkInvoice(paymentInfo.invoice_hash)
     );
 
-    console.log("*********", invoice);
+    // console.log("*********", invoice);
 
     if (error || !invoice?.payment_request) {
       console.error("Error checking invoice: ", { error, invoice });
@@ -43,11 +43,13 @@ export default async function handler(req: Request, res: Response) {
         res.status(200).json(post);
         return;
       } else {
-        res.status(200).json({ status: "Post not found" });
+        res.status(400).json({ status: "Post not found" });
         return;
       }
     } else {
-      res.status(200).json({ status: "Invoice not paid" });
+      res.status(400).json({ status: "Invoice not paid" });
     }
+  } else {
+    res.status(400).json({ status: "Payment id not found" });
   }
 }

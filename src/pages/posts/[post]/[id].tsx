@@ -16,53 +16,61 @@ import { TwitterTweetEmbed } from "react-twitter-embed";
 
 export type Props = {
   title: string;
-  dateString: string;
+  date: string;
   slug: string;
   tags: string[];
   author: string;
   description?: string;
-  source: MdxRemote.Source;
+  text: string;
 };
 
-const components = { InstagramEmbed, YouTube, TwitterTweetEmbed };
-const slugToPostContent = ((postContents) => {
-  let hash = {};
-  postContents.forEach((it) => (hash[it.slug] = it));
-  return hash;
-})(fetchPostContent());
+// const components = { InstagramEmbed, YouTube, TwitterTweetEmbed };
+// const slugToPostContent = ((postContents) => {
+//   let hash = {};
+//   postContents.forEach((it) => (hash[it.slug] = it));
+//   return hash;
+// })(fetchPostContent());
 
 export default function Post({
   title,
-  dateString,
+  date,
   slug,
   tags,
   author,
   description = "",
-  source,
+  text,
 }: Props) {
-  const content = hydrate(source, { components });
+  // const content = hydrate(source, { components });
   return (
     <PostLayout
       title={title}
-      date={parseISO(dateString)}
+      date={parseISO(date)}
       slug={slug}
       tags={tags}
       author={author}
       description={description}
     >
-      {content}
+      {text}
     </PostLayout>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await prisma.post.findUnique({
-    where: {
-      // needs to be changed
-      slug: String(params?.id),
-    },
-  });
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  req,
+}) => {
+  const { post, id } = params;
+
+  const url = `http://${req.headers.host}/api/v1/post?slug=${post}&id=${id}`;
+  const resp = await fetch(url);
+
+  const res = await resp.json();
+
+  const tags = [];
+
+  const { title, date, author, description, text } = res;
+
   return {
-    props: { post },
+    props: { title, date, tags, author, description, text },
   };
 };
