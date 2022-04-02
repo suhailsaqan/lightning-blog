@@ -125,7 +125,7 @@ export default class TextEditor extends React.Component<{}, State> {
           }
 
           .md-root {
-            font-family: serif;
+            font-family: "Inconsolata", "Menlo", "Consolas", monospace;
             max-width: 600px;
             margin: 25px auto;
             padding: 25px;
