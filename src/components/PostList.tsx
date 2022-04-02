@@ -44,9 +44,9 @@ export default function PostList({ posts, tags, pagination }: Props) {
         .container {
           display: flex;
           margin: 0 auto;
-          max-width: 1200px;
-          width: 100%;
+          width: calc(100% - 1.5rem);
           padding: 0 1.5rem;
+          padding-right: 0rem;
         }
         ul {
           margin: 0;
@@ -67,15 +67,17 @@ export default function PostList({ posts, tags, pagination }: Props) {
           flex: 1 0 auto;
         }
         .categories {
-          display: none;
+          display: block;
+          padding-right: 15rem;
         }
         .categories li {
           margin-bottom: 0.75em;
         }
 
-        @media (min-width: 769px) {
+        @media (max-width: 769px) {
           .categories {
-            display: block;
+            display: none;
+            padding-right: 0rem;
           }
         }
       `}</style>

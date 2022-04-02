@@ -167,7 +167,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
               className="md-url-input-close md-toolbar-button"
               onClick={this.onSaveLink}
             >
-              ok
+              link
             </button>
             <input
               ref={this.urlInputRef}
@@ -181,7 +181,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
           </div>
           <style jsx global>{`
             .md-editor-toolbar {
-              background: #0b3827;
+              background: #111;
               color: #fff;
               border-radius: 8px;
               z-index: 2;
@@ -199,11 +199,11 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
               display: flex;
               align-items: center;
               justify-content: center;
-              width: calc(100% - 56px);
-              height: 56px;
+              width: calc(100% - 35px);
+              height: 35px;
               padding: 5px 11px 5px 11px;
               border: none;
-              background: #0b3827;
+              background: #111;
               color: #fff;
               font-size: 0.9em;
               font-weight: 100;
@@ -216,7 +216,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
               right: 0;
               top: 0;
               cursor: pointer;
-              background: #0b3827;
+              background: #111;
             }
 
             .md-toolbar-controls {
@@ -239,8 +239,8 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
               color: inherit;
               cursor: pointer;
               padding: 6px;
-              height: 56px;
-              width: 56px;
+              height: 35px;
+              width: 35px;
               line-height: 24px;
               text-align: center;
               display: flex;
@@ -342,7 +342,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
         ) : null}
         <style jsx global>{`
           .md-editor-toolbar {
-            background: #0b3827;
+            background: #111;
             color: #fff;
             border-radius: 8px;
             z-index: 2;
@@ -360,11 +360,11 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: calc(100% - 56px);
-            height: 56px;
+            width: calc(100% - 35px);
+            height: 35px;
             padding: 5px 11px 5px 11px;
             border: none;
-            background: #0b3827;
+            background: #111;
             color: #fff;
             font-size: 0.9em;
             font-weight: 100;
@@ -377,7 +377,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             right: 0;
             top: 0;
             cursor: pointer;
-            background: #0b3827;
+            background: #111;
           }
 
           .md-toolbar-controls {
@@ -400,8 +400,8 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             color: inherit;
             cursor: pointer;
             padding: 6px;
-            height: 56px;
-            width: 56px;
+            height: 35px;
+            width: 35px;
             line-height: 24px;
             text-align: center;
             display: flex;

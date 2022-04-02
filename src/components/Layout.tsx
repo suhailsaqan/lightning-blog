@@ -27,8 +27,9 @@ export default function Layout({ children }: Props) {
             height: 100%;
           }
           main {
-            display: flex;
             min-height: 100%;
+            display: flex;
+            flex-direction: column;
           }
           @media (min-width: 769px) {
             .root {
@@ -36,6 +37,7 @@ export default function Layout({ children }: Props) {
               flex: 1 0 auto;
             }
             main {
+              display: flex;
               flex: 1 0 auto;
             }
           }

@@ -1,7 +1,10 @@
-import dynamic from "next/dynamic";
-
 import TextEditor from "../components/draftEditor/draftEditor";
+import Layout from "../components/Layout";
 
 export default function Draft() {
-  return <TextEditor />;
+  return (
+    <Layout>
+      <TextEditor />
+    </Layout>
+  );
 }
