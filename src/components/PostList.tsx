@@ -44,9 +44,8 @@ export default function PostList({ posts, tags, pagination }: Props) {
         .container {
           display: flex;
           margin: 0 auto;
-          width: calc(100% - 1.5rem);
-          padding: 0 1.5rem;
-          padding-right: 0rem;
+          max-width: 80%;
+          width: calc(80% - 1.5rem);
         }
         ul {
           margin: 0;
@@ -59,6 +58,7 @@ export default function PostList({ posts, tags, pagination }: Props) {
           display: flex;
           flex-direction: column;
           flex: 1 1 auto;
+          max-width: 80%;
         }
         .posts li {
           margin-bottom: 1.5rem;
@@ -68,7 +68,7 @@ export default function PostList({ posts, tags, pagination }: Props) {
         }
         .categories {
           display: block;
-          padding-right: 15rem;
+          // padding-right: 15rem;
         }
         .categories li {
           margin-bottom: 0.75em;
@@ -77,7 +77,13 @@ export default function PostList({ posts, tags, pagination }: Props) {
         @media (max-width: 769px) {
           .categories {
             display: none;
-            padding-right: 0rem;
+            // padding-right: 0rem;
+          }
+          .container {
+            max-width: 100%;
+          }
+          .posts {
+            max-width: 100%;
           }
         }
       `}</style>

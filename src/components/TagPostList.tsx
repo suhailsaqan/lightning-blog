@@ -44,7 +44,7 @@ export default function TagPostList({ posts, tag, pagination }: Props) {
             margin: 0 auto;
             width: calc(100% - 1.5rem);
             padding: 0 1.5rem;
-            padding-right: 0rem;
+            // padding-right: 0rem;
           }
           h1 {
             margin: 0 0 2rem;
