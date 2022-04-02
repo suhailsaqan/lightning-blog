@@ -5,6 +5,7 @@ import { getInvoice } from "../../../api";
 import useCopyClipboard from "../../../util/clipboard";
 import styled from "styled-components";
 import { IndexStyles as Style } from "../../../components/invoice_styles";
+import Layout from "../../../components/Layout";
 
 const S = {
   separation: styled.div`
@@ -31,10 +32,11 @@ const S = {
   `,
   button: styled.button`
     padding: 0;
-    width: 100%;
+    width: 50%;
+    margin: 15px auto;
     height: 38px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: #000;
@@ -127,7 +129,7 @@ export default function Invoice({
 
   if (mutation.data?.pr) {
     return (
-      <>
+      <Layout>
         <Style.copyButton onClick={() => copy(mutation.data.pr)}>
           {isCopied ? (
             <Style.copied>Copied</Style.copied>
@@ -137,19 +139,22 @@ export default function Invoice({
           <QRcode value={mutation.data.pr} size={240} />
         </Style.copyButton>
         <Style.info>Scan QR Code</Style.info>
-      </>
+      </Layout>
     );
   }
 
   return (
-    <Style.wrapper>
-      <S.button
-        disabled={mutation.isLoading}
-        onClick={() => mutation.mutate({ amount: price, slug: slug })}
-      >
-        Create an Invoice
-      </S.button>
-    </Style.wrapper>
+    <Layout>
+      <Style.wrapper>
+        <Style.info>Pay your invoice of {price} sats</Style.info>
+        <S.button
+          disabled={mutation.isLoading}
+          onClick={() => mutation.mutate({ amount: price, slug: slug })}
+        >
+          Create an Invoice
+        </S.button>
+      </Style.wrapper>
+    </Layout>
   );
 }
 

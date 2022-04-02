@@ -2,13 +2,8 @@ import styled, { css } from "styled-components";
 
 export const IndexStyles = {
   wrapper: styled.div`
-    height: 100vh;
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    margin: auto;
+    width: 50%;
   `,
   square: styled.div`
     width: 350px;
@@ -35,7 +30,6 @@ export const IndexStyles = {
   info: styled.div`
     width: 100%;
     font-size: 20px;
-    color: gray;
     width: 100%;
     text-align: center;
   `,
