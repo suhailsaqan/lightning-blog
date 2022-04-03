@@ -43,17 +43,12 @@ function uploadImage(file: File): Promise<UploadImageData> {
 }
 
 export default class TextEditor extends React.Component<{}, State> {
+  html =
+    "<h1>Bitcoin, a Peaceful Protest for the Palestinians</h1><p><strong>With Palestinians excluded from financial services and unable to achieve independence in the fiat system, the country needs Bitcoin.</strong></p><p>Palestine’s economy is struggling from severe internal and external constraints under the Israeli occupation. Israel-imposed economic and social restrictions are constantly hindering inclusive and sustainable economic growth. These restrictions put various limitations on people and resources, causing economic stagnation in that area.</p><p>However, other internal factors also contribute to poor economic growth. Some of these include high poverty and unemployment rates and poor financial systems. For example, the unemployment rate in Gaza reached 49% last year, with a poverty rate as high as 56% in 2017.</p><p><br/></p>";
+  contentState = toState(this.html);
   state = {
-    editorState: EditorState.createEmpty(),
-    // editorState: EditorState.createWithContent(
-    //   toState(`<h2><em>Castlevania: Lords of Shadow</em></h2>
-    // <p><em>Lords of Shadow</em> is a third-person action-adventure game in which the player controls the main character, Gabriel Belmont. The combat involves a retractable chain whip called the Combat Cross. The player can perform up to forty unlockable <a href="https://en.wikipedia.org/wiki/Combo_(video_gaming)">combos</a> with it. The commands consist of  direct attacks for dealing damage to single enemies, and weak area attacks when surrounded by them. It is  also capable of interactions with secondary weapons, such as knives, holy water and other items which can be  upgraded. In addition, the Combat Cross&#x27;s melee skills can be combined with the Light and Shadow magic  system, which are spells aimed at defense and aggression, respectively. The whip is upgradeable and can also be  used to guard against an opponent&#x27;s attack.</p>
-    // <p><br/></p>
-    // <hr/>
-    // <p>The developers attempted to reach out to new audiences by  distancing <em>Lords of Shadow</em> from previous <em>Castlevania</em> games, but kept some elements intact to  not alienate franchise fans. For example, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event">vampires</a> (press Ctrl) and  werewolves are recurring enemies in the game,but other existing enemies include trolls, giant spiders  and goblin-like creatures. The enemies can be defeated for experience points, which can be used to purchase combos  or to augment the player&#x27;s abilities further. <em>Lords of Shadow</em> has large-scale bosses known as  titans. <mark>The Combat Cross</mark> can be used to grapple onto their bodies and navigate them, and break the runes  that animate the titan.</p><blockquote>The <strong>Baader–Meinhof effect</strong>, also known as <strong>frequency illusion</strong>, is the illusion in which a word, a name, or other thing that has  recently come to one&#x27;s attention suddenly seems to appear with  improbable frequency shortly afterwards (not to be confused with the <a href="https://en.wikipedia.org/wiki/Recency_illusion">recency illusion</a> or <a href="https://en.wikipedia.org/wiki/Selection_bias">selection bias</a>).</blockquote>
-    // <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Flood-meadow_near_Hohenau.jpg" data-id="my-awesome-id" />
-    // <p>Look at console when typing</p>`)
-    // )
+    // editorState: EditorState.createEmpty(),
+    editorState: EditorState.createWithContent(this.contentState),
   };
 
   private readonly plugins: DraftPlugin[] = [
