@@ -1,19 +1,19 @@
 {
-  "base_url": "qwd",
-  "site_title": "qwd",
-  "site_description": "qwd",
+  "base_url": "",
+  "site_title": "Lightning Blog",
+  "site_description": "Self-host your own blog with a lightning paywall - no censorship!",
   "site_keywords": [
     {
       "keyword": "Next.js"
     },
     {
-      "keyword": "Netlify"
+      "keyword": "Lightning"
     },
     {
-      "keyword": "React"
+      "keyword": "Bitcoin"
     }
   ],
   "posts_per_page": 5,
-  "twitter_account": "qwd",
-  "github_account": "qwd"
+  "twitter_account": "suhailsaqan",
+  "github_account": "suhailsaqan"
 }
