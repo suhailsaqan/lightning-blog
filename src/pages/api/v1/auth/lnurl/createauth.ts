@@ -1,0 +1,21 @@
+import { Request, Response } from "express";
+import { middlewares } from "../../../../../helpers/express";
+import prisma from "../../../../../lib/prisma";
+import { randomBytes } from "crypto";
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+export default async function handler(req: Request, res: Response) {
+  function k1() {
+    return randomBytes(32).toString("hex");
+  }
+  await middlewares(req, res);
+
+  const createauth = await prisma.lnAuth.create({ data: { k1: k1() } });
+
+  if (createauth) {
+    res.status(200).json(createauth);
+  } else {
+    res.status(400).json({ status: "lnAuth could not be created" });
+  }
+}

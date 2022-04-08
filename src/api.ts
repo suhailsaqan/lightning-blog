@@ -12,6 +12,15 @@ export const getInvoice = ({
     res.json()
   );
 
+export const createAuth = ({}: {}) =>
+  fetch(`/api/v1/auth/lnurl/createauth`, {
+    method: "post",
+    body: JSON.stringify({}),
+  }).then((res) => res.json());
+
+export const lnAuth = ({ k1 }: { k1: string }) =>
+  fetch(`/api/v1/auth/lnurl/lnauth?k1=${k1}`).then((res) => res.json());
+
 export const checkInvoice = ({
   slug,
   id,
