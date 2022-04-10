@@ -33,3 +33,4 @@ yarn-error.log*
 # mdx
 .mdx-data
 prisma/dev.db
+*.db

@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../lib/prisma";
 
 export default (req, res) => NextAuth(req, res, options);
 
@@ -51,16 +51,20 @@ const options = {
       },
       async authorize(credentials, req) {
         const { k1, pubkey } = credentials;
+        console.log("lookhereeeeeee", k1, pubkey, credentials);
         try {
-          const lnauth = await prisma.lnAuth.findUnique({ where: { k1 } });
+          const lnauth = await prisma.lnAuth.findUnique({ where: { k1: k1 } });
+          console.log("ya know we out here");
           if (lnauth.pubkey === pubkey) {
-            let user = await prisma.user.findUnique({ where: { pubkey } });
+            let user = await prisma.user.findUnique({
+              where: { pubkey: pubkey },
+            });
             if (!user) {
               user = await prisma.user.create({
-                data: { name: pubkey.slice(0, 10), pubkey },
+                data: { name: pubkey.slice(0, 10), pubkey: pubkey },
               });
             }
-            await prisma.lnAuth.delete({ where: { k1 } });
+            await prisma.lnAuth.delete({ where: { k1: k1 } });
             return user;
           }
         } catch (error) {

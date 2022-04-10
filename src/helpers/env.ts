@@ -3,6 +3,7 @@ export const env = {
   min: Number(process.env["MIN"]) || 0,
   lightning_memo: process.env.lightning_memo || "Lightning Invoice",
   name: process.env["NAME"] || "Lightning",
+  lnauth_url: process.env["LNAUTH_URL"] || "",
 };
 
 export const lightning_memo = JSON.stringify([

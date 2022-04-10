@@ -1,5 +1,6 @@
 import { getHash } from "./util/crypto";
 import { encode } from "utf8";
+import axios from "axios";
 
 export const getInvoice = ({
   amount,
@@ -12,14 +13,10 @@ export const getInvoice = ({
     res.json()
   );
 
-export const createAuth = ({}: {}) =>
-  fetch(`/api/v1/auth/lnurl/createauth`, {
-    method: "post",
-    body: JSON.stringify({}),
-  }).then((res) => res.json());
+export const createAuth = () => axios.post(`/api/auth/lnurl/createauth`, {});
 
 export const lnAuth = ({ k1 }: { k1: string }) =>
-  fetch(`/api/v1/auth/lnurl/lnauth?k1=${k1}`).then((res) => res.json());
+  fetch(`/api/auth/lnurl/lnauth?k1=${k1}`).then((res) => res.json());
 
 export const checkInvoice = ({
   slug,

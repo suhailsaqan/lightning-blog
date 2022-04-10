@@ -17,6 +17,8 @@ export default async function handler(req: Request, res: Response) {
     query: { amount, slug },
   } = req;
 
+  console.log("*******************", amount);
+
   if (!amount || typeof amount !== "string" || isNaN(Number(amount))) {
     res.status(200).json({ status: "ERROR", reason: "Invalid amount" });
     return;

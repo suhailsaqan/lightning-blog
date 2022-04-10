@@ -139,6 +139,7 @@ export default function Invoice({
           <QRcode value={mutation.data.pr} size={240} />
         </Style.copyButton>
         <Style.info>Scan QR Code</Style.info>
+        <p>{mutation.data?.uid}</p>
       </Layout>
     );
   }

@@ -16,5 +16,5 @@
     "incremental": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "src/components/form.js", "src/components/lnqr.js", "src/components/login.js", "src/pages/login.js"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js", "src/components/form.tsx", "src/components/lnqr.js", "src/components/login.js", "src/pages/login.js", "src/lib/lnurl.js", "src/components/invoice-status.js"]
 }
