@@ -85,13 +85,14 @@ export class AddButton extends React.Component<AddButtonProps, AddButtonState> {
             const extraProps = button.props ? button.props : {};
 
             return (
-              <Button
-                {...extraProps}
-                key={index}
-                getEditorState={this.props.getEditorState}
-                setEditorState={this.props.setEditorState}
-                close={() => {}}
-              />
+              // <Button
+              //   {...extraProps}
+              //   key={index}
+              //   getEditorState={this.props.getEditorState}
+              //   setEditorState={this.props.setEditorState}
+              //   close={() => {}}
+              // />
+              <p>temp</p>
             );
           })}
         </div>
