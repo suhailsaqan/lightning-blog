@@ -7,7 +7,6 @@ import prisma from "../../lib/prisma";
 
 export default async ({ query }, res) => {
   try {
-    console.log("heheheheeheheheheheheheheh");
     const sig = Buffer.from(query.sig, "hex");
     const k1 = Buffer.from(query.k1, "hex");
     const key = Buffer.from(query.key, "hex");

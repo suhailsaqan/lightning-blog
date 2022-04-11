@@ -90,7 +90,8 @@ function LnQRAuth({ k1, encodedUrl, callbackUrl }) {
   console.log("look here:", mutation.data);
 
   if (mutation.data && mutation.data.pubkey) {
-    signIn("credentials", { ...mutation.data.lnAuth, callbackUrl });
+    console.log(mutation.data);
+    signIn("credentials", { ...mutation.data, callbackUrl });
   }
 
   // output pubkey and k1

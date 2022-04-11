@@ -24,8 +24,6 @@ export default async function handler(req: Request, res: Response) {
       LndApi.checkInvoice(paymentInfo.invoice_hash)
     );
 
-    // console.log("*********", invoice);
-
     if (error || !invoice?.payment_request) {
       console.error("Error checking invoice: ", { error, invoice });
       res.status(400).json({ status: "ERROR", reason: "ErrorCheckingInvoice" });

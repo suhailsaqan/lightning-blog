@@ -9,7 +9,6 @@ export async function getServerSideProps({
   const session = await getSession({ req });
 
   if (session && res && callbackUrl) {
-    console.log("**********", session, callbackUrl);
     res.writeHead(302, {
       Location: callbackUrl,
     });

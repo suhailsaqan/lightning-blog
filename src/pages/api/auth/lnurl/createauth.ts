@@ -12,9 +12,8 @@ export default async function handler(req: Request, res: Response) {
   }
   await middlewares(req, res);
 
-  console.log("jdqwbdjkwqbdjkqwbdkqjwbdqjkwbkjwbdkwjbjk");
-
   const createauth = await prisma.lnAuth.create({ data: { k1: k1() } });
+  console.log("jdqwbdjkwqbdjkqwbdkqjwbdqjkwbkjwbdkwjbjk", createauth);
 
   const encodedurl = encodedUrl(process.env.LNAUTH_URL, "login", createauth.k1);
 
