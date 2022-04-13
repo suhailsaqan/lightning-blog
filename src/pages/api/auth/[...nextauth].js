@@ -51,9 +51,9 @@ const options = {
       },
       async authorize(credentials, req) {
         const { k1, pubkey } = credentials;
-        console.log("lookhereeeeeee", k1, pubkey, credentials);
         try {
           const lnauth = await prisma.lnAuth.findUnique({ where: { k1: k1 } });
+          console.log("lookhereeeeeee", k1, pubkey, credentials, lnauth);
           if (lnauth.pubkey === pubkey) {
             let user = await prisma.user.findUnique({
               where: { pubkey: pubkey },
