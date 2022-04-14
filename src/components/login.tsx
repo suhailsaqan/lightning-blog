@@ -6,10 +6,7 @@ import { useEffect, useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import { useRouter } from "next/router";
 import LnQR, { LnQRSkeleton } from "./lnqr";
-import { useMutation, useQuery } from "react-query";
-// import { useMutation } from "@apollo/client";
-import { createAuth, lnAuth } from "../api";
-import * as axios from "axios";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 export const EmailSchema = Yup.object({
   email: Yup.string().email("email is no good").required("required"),
@@ -74,24 +71,17 @@ export default function Login({ providers, callbackUrl, error, Header }) {
 }
 
 function LnQRAuth({ k1, encodedUrl, callbackUrl }) {
-  const mutation = useMutation(lnAuth, {
-    // Refetch the data every second
-    refetchInterval: 1000,
-  });
-
-  useEffect(async () => {
-    for (let i = 0; i < 100000; i++) {
-      console.log("mutating");
-      mutation.mutate({ k1: k1 });
-      await new Promise((r) => setTimeout(r, 5000));
+  const query = gql`
+  {
+    lnAuth(k1: "${k1}") {
+      pubkey
+      k1
     }
-  }, []);
+  }`;
+  const { data } = useQuery(query, { pollInterval: 1000 });
 
-  console.log("look here:", mutation.data);
-
-  if (mutation.data && mutation.data.pubkey) {
-    console.log(mutation.data);
-    signIn("credentials", { ...mutation.data, callbackUrl });
+  if (data && data.lnAuth.pubkey) {
+    signIn("credentials", { ...data.lnAuth, callbackUrl });
   }
 
   // output pubkey and k1
@@ -104,26 +94,22 @@ function LnQRAuth({ k1, encodedUrl, callbackUrl }) {
 
 export function LightningAuth({ callbackUrl }) {
   // query for challenge
-  const mutation = useMutation(createAuth);
+  const [createAuth, { data, error }] = useMutation(gql`
+    mutation createAuth {
+      createAuth {
+        k1
+        encodedUrl
+      }
+    }
+  `);
 
-  useEffect(() => {
-    console.log("mutating");
-    mutation.mutate();
-  }, []);
+  useEffect(createAuth, []);
 
-  if (mutation.error) return <div>error</div>;
+  if (error) return <div>error</div>;
 
-  if (!mutation.data) {
-    // return <LnQRSkeleton status="generating" />;
-    return <p>generating</p>;
+  if (!data) {
+    return <LnQRSkeleton status="generating" />;
   }
 
-  console.log("last: ", mutation.data.data);
-  return (
-    <LnQRAuth
-      k1={mutation.data.data.createauth.k1}
-      encodedUrl={mutation.data.data.encodedurl}
-      callbackUrl={callbackUrl}
-    />
-  );
+  return <LnQRAuth {...data.createAuth} callbackUrl={callbackUrl} />;
 }

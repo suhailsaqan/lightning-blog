@@ -3,18 +3,32 @@ import InvoiceStatus from "./invoice-status";
 import { requestProvider } from "webln";
 import { useEffect } from "react";
 
-export default function LnQR({ value, webLn, statusVariant, status }) {
+type LnQRProps = {
+  value: string;
+  webLn?: any;
+  statusVariant?: any;
+  status: string;
+};
+
+export default function LnQR({
+  value,
+  webLn,
+  statusVariant,
+  status,
+}: LnQRProps) {
   const qrValue = "lightning:" + value.toUpperCase();
 
-  useEffect(async () => {
-    if (webLn) {
-      try {
-        const provider = await requestProvider();
-        await provider.sendPayment(value);
-      } catch (e) {
-        console.log(e.message);
+  useEffect(() => {
+    (async () => {
+      if (webLn) {
+        try {
+          const provider = await requestProvider();
+          await provider.sendPayment(value);
+        } catch (e) {
+          console.log(e.message);
+        }
       }
-    }
+    })();
   }, []);
 
   return (
@@ -35,7 +49,7 @@ export default function LnQR({ value, webLn, statusVariant, status }) {
   );
 }
 
-export function LnQRSkeleton({ status }) {
+export function LnQRSkeleton({ status }: { status: string }) {
   return (
     <>
       <div
@@ -45,9 +59,9 @@ export function LnQRSkeleton({ status }) {
           maxWidth: "calc(300px + 2rem)",
         }}
       />
-      <div className="mt-3 w-100">
+      {/* <div className="mt-3 w-100">
         <InputSkeleton />
-      </div>
+      </div> */}
       <InvoiceStatus variant="default" status={status} />
     </>
   );

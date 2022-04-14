@@ -17,6 +17,17 @@ export default function Navigation() {
             </Link>
           </li>
           <li>
+            <Link href="/login">
+              <a
+                className={
+                  router.pathname.startsWith("/login") ? "active" : null
+                }
+              >
+                login
+              </a>
+            </Link>
+          </li>
+          <li>
             <Link href="/draft">
               <a
                 className={

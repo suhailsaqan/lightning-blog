@@ -21,6 +21,10 @@ import { toState } from "./util/importer";
 import { UploadImageData } from "./util/uploadImage";
 import { SideButton, MediumDraftEditor } from "./MediumDraftEditor";
 import { nhm } from "./util/markdown";
+import { /*gql,*/ useMutation, useQuery } from "@apollo/client";
+import axios from "axios";
+import { print } from "graphql";
+import gql from "graphql-tag";
 
 interface State {
   editorState: EditorState;
@@ -147,31 +151,62 @@ export default class TextEditor extends React.Component<{}, State> {
     );
   }
 
-  private onExport(editorState: EditorState) {
-    const html = this.exporter(editorState.getCurrentContent());
-
-    console.log(html);
-
-    var text = nhm.translate(html);
-
-    console.log(text);
-
-    // if (html !== demoText) {
-    //   demoText = html;
-    //   console.log(demoText);
-    // }
-  }
-
-  private onChange = (editorState: EditorState) => {
+  private onChange = async (editorState: EditorState) => {
     if (
       editorState.getCurrentContent() !==
       this.state.editorState.getCurrentContent()
     ) {
-      this.onExport(editorState);
+      var html = setRenderOptions(editorState.getCurrentContent());
+      // onExport(editorState.getCurrentContent());
+      const t = await axios({
+        url: "http://localhost:3000/api/graphql",
+        method: "post",
+        data: {
+          query: `mutation{
+            updatePost(slug:"hey",text:"${html}"){
+              uid 
+              title
+              slug 
+              text
+              price
+            }
+           }`,
+        },
+      });
+      console.log(t);
     }
 
     this.setState({
       editorState,
     });
   };
+}
+
+export function onExport(exporttext) {
+  var html = setRenderOptions(exporttext);
+
+  console.log(html);
+
+  html = String(html);
+
+  const query = gql`
+    mutation updatePost {
+      updatePost(slug: "license", text: html) {
+        uid
+        title
+        slug
+        text
+        price
+      }
+    }
+  `;
+
+  useEffect(() => {
+    const { data } = useQuery(query, { pollInterval: 1000 });
+    console.log(data);
+  }, []);
+
+  var text = nhm.translate(html);
+
+  console.log(text);
 }

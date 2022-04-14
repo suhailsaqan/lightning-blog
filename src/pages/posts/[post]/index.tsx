@@ -1,11 +1,12 @@
 import { GetServerSideProps } from "next";
 import QRcode from "qrcode.react";
-import { useMutation } from "react-query";
 import { getInvoice } from "../../../api";
 import useCopyClipboard from "../../../util/clipboard";
 import styled from "styled-components";
 import { IndexStyles as Style } from "../../../components/invoice_styles";
 import Layout from "../../../components/Layout";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import axios from "axios";
 
 const S = {
   separation: styled.div`
@@ -113,50 +114,54 @@ const S = {
 export default function Invoice({
   price,
   slug,
+  uid,
+  invoice_hash,
+  invoice,
 }: {
   price: number;
   slug: string;
+  uid: string;
+  invoice_hash: string;
+  invoice: string;
 }) {
   const [isCopied, copy] = useCopyClipboard({ successDuration: 3000 });
 
-  const mutation = useMutation(getInvoice);
-
-  if (mutation.error) {
+  if (!invoice) {
     return (
       <div>We ran into an error creating the invoice. Please try again!</div>
     );
   }
 
-  if (mutation.data?.pr) {
+  if (invoice) {
     return (
       <Layout>
-        <Style.copyButton onClick={() => copy(mutation.data.pr)}>
+        <Style.copyButton onClick={() => copy(invoice)}>
           {isCopied ? (
             <Style.copied>Copied</Style.copied>
           ) : (
             <Style.copy>Click To Copy Invoice</Style.copy>
           )}
-          <QRcode value={mutation.data.pr} size={240} />
+          <QRcode value={invoice} size={240} />
         </Style.copyButton>
         <Style.info>Scan QR Code</Style.info>
-        <p>{mutation.data?.uid}</p>
+        <p>{uid}</p>
       </Layout>
     );
   }
 
-  return (
-    <Layout>
-      <Style.wrapper>
-        <Style.info>Pay your invoice of {price} sats</Style.info>
-        <S.button
-          disabled={mutation.isLoading}
-          onClick={() => mutation.mutate({ amount: price, slug: slug })}
-        >
-          Create an Invoice
-        </S.button>
-      </Style.wrapper>
-    </Layout>
-  );
+  // return (
+  //   <Layout>
+  //     <Style.wrapper>
+  //       <Style.info>Pay your invoice of {price} sats</Style.info>
+  //       <S.button
+  //         // disabled={true}
+  //         onClick={() => getInvoice}
+  //       >
+  //         Create an Invoice
+  //       </S.button>
+  //     </Style.wrapper>
+  //   </Layout>
+  // );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({
@@ -165,12 +170,39 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const slug = params.post;
 
-  const url = `http://${req.headers.host}/api/v1/postinfo?slug=${slug}`;
-  const resp = await fetch(url);
+  const info = await axios({
+    url: "http://localhost:3000/api/graphql",
+    method: "post",
+    data: {
+      query: `query postInfo {
+      postInfo(slug:"${slug}"){
+        slug
+        price
+      }
+    }`,
+    },
+  });
 
-  const price = await resp.json();
+  const { price } = info.data.data.postInfo;
+
+  const createinvoice = await axios({
+    url: "http://localhost:3000/api/graphql",
+    method: "post",
+    data: {
+      query: `mutation createInvoice {
+        createInvoice(amount:100,slug:"license"){
+          slug
+          uid
+          invoice_hash
+          invoice
+        }
+      }`,
+    },
+  });
+
+  const { uid, invoice_hash, invoice } = createinvoice.data.data.createInvoice;
 
   return {
-    props: { price, slug },
+    props: { price, slug, uid, invoice_hash, invoice },
   };
 };

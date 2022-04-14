@@ -11,7 +11,7 @@ export default async function handler(req: Request, res: Response) {
     query: { k1 },
   } = req;
 
-  const lnauth = await prisma.lnAuth.findUnique({ where: { k1: k1 } });
+  const lnauth = await prisma.lnAuth.findUnique({ where: { k1: String(k1) } });
 
   if (!lnauth) {
     res.status(400).json({ status: "lnauth not found" });
