@@ -23,7 +23,7 @@ global.apolloServer = new ApolloServer({
   // tracing: true,
   context: async ({ req }) => {
     const session = await getSession({ req });
-    console.log("-------------", session);
+    // console.log("-------------", session);
     return {
       models,
       // lnd,

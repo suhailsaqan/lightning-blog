@@ -159,7 +159,7 @@ export default class TextEditor extends React.Component<{}, State> {
       var html = setRenderOptions(editorState.getCurrentContent());
       // onExport(editorState.getCurrentContent());
       const t = await axios({
-        url: "http://localhost:3000/api/graphql",
+        url: `${process.env.SELF_URL}/api/graphql`,
         method: "post",
         data: {
           query: `mutation{

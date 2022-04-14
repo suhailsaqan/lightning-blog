@@ -103,7 +103,7 @@ export function LightningAuth({ callbackUrl }) {
     }
   `);
 
-  createAuth();
+  useEffect(createAuth, []);
 
   // useEffect(createAuth, []);
 
