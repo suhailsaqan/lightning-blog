@@ -25,7 +25,7 @@ export async function getServerSideProps({
 
   return {
     props: {
-      providers: await providers({ req, res }),
+      // providers: await providers({ req, res }),
       // providers: await providers(),
       callbackUrl,
       error,

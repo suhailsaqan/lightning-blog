@@ -190,7 +190,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     method: "post",
     data: {
       query: `mutation createInvoice {
-        createInvoice(amount:100,slug:"license"){
+        createInvoice(amount:"${price}",slug:"${slug}"){
           slug
           uid
           invoice_hash
@@ -199,6 +199,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       }`,
     },
   });
+
+  console.log(createinvoice.data);
 
   const { uid, invoice_hash, invoice } = createinvoice.data.data.createInvoice;
 

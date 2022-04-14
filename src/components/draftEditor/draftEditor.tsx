@@ -202,7 +202,7 @@ export function onExport(exporttext) {
   `;
 
   useEffect(() => {
-    const { data } = useQuery(query, { pollInterval: 1000 });
+    const { data } = useQuery(query);
     console.log(data);
   }, []);
 

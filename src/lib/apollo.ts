@@ -123,7 +123,7 @@ export default function getApolloClient() {
       },
       query: {
         fetchPolicy: "cache-only",
-        nextFetchPolicy: "cache-first",
+        // nextFetchPolicy: "cache-first",
       },
     },
   });

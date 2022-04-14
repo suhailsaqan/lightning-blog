@@ -51,5 +51,7 @@ const invoice = async (parent, { amount, slug }, { models }) => {
 
   console.log("payment uid:", uid);
 
+  console.log("it is trying", paid);
+
   return paid;
 };

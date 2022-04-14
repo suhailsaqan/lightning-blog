@@ -20,7 +20,7 @@ global.apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
-  tracing: true,
+  // tracing: true,
   context: async ({ req }) => {
     const session = await getSession({ req });
     console.log("-------------", session);

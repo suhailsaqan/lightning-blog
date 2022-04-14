@@ -7,7 +7,7 @@ export const MeContext = React.createContext({
 });
 
 export function MeProvider({ me, children }) {
-  const { data } = useQuery(ME, { pollInterval: 1000 });
+  const { data } = useQuery(ME, { pollInterval: 50000 });
   console.log(data);
 
   const contextValue = {
