@@ -78,7 +78,7 @@ function LnQRAuth({ k1, encodedUrl, callbackUrl }) {
       k1
     }
   }`;
-  const { data } = useQuery(query, { pollInterval: 10000 });
+  const { data } = useQuery(query, { pollInterval: 2000 });
 
   if (data && data.lnAuth.pubkey) {
     signIn("credentials", { ...data.lnAuth, callbackUrl });
@@ -103,9 +103,9 @@ export function LightningAuth({ callbackUrl }) {
     }
   `);
 
-  useEffect(createAuth, []);
-
-  // useEffect(createAuth, []);
+  useEffect(() => {
+    createAuth();
+  }, []);
 
   if (error) return <div>error</div>;
 
