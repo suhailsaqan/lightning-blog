@@ -144,7 +144,9 @@ export default function Invoice({
           <QRcode value={invoice} size={240} />
         </Style.copyButton>
         <Style.info>Scan QR Code</Style.info>
-        <p>{uid}</p>
+        <a href={`http://localhost:3000/posts/license/${uid}`}>
+          When paid click here
+        </a>
       </Layout>
     );
   }
@@ -201,6 +203,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       }`,
     },
   });
+
+  console.log(createinvoice.data);
 
   const { uid, invoice_hash, invoice } = createinvoice.data.data.createInvoice;
 
