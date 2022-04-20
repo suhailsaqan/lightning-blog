@@ -60,7 +60,6 @@ export default function Login({ providers, callbackUrl, error, Header }) {
                 })
               }
             >
-              {/* <LightningIcon width={20} height={20} className="mr-3" /> */}
               Login with Lightning
             </Button>
           </>
