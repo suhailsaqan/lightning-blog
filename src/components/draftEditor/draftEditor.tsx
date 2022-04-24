@@ -94,13 +94,16 @@ export default class TextEditor extends React.Component<{}, State> {
          }`,
       },
     });
-    if (this.html != null) {
+    if (this.html) {
       this.html = this.html.data.data.post.text;
     }
     this.contentState = toState(this.html);
     this.state = {
       editorState: EditorState.createWithContent(this.contentState),
     };
+    this.setState({
+      editorState: this.state.editorState,
+    });
   }
 
   private readonly plugins: DraftPlugin[] = [
