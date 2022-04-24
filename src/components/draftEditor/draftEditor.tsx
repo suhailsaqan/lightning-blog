@@ -28,6 +28,8 @@ import gql from "graphql-tag";
 
 interface State {
   editorState: EditorState;
+  contentState: any;
+  html: any;
 }
 
 function uploadImage(file: File): Promise<UploadImageData> {
@@ -46,14 +48,60 @@ function uploadImage(file: File): Promise<UploadImageData> {
   });
 }
 
+async function getDraft(slug: {
+  slug: string;
+}): Promise<{
+  error?: string;
+  data?: string;
+}> {
+  return await axios({
+    url: `http://localhost:3000/api/graphql`,
+    method: "post",
+    data: {
+      query: `query{
+        post(slug:"${slug}"){
+          uid 
+          title
+          slug 
+          text
+          price
+        }
+       }`,
+    },
+  });
+}
+
 export default class TextEditor extends React.Component<{}, State> {
-  html =
-    "<h1>Bitcoin, a Peaceful Protest for the Palestinians</h1><p><strong>With Palestinians excluded from financial services and unable to achieve independence in the fiat system, the country needs Bitcoin.</strong></p><p>Palestine’s economy is struggling from severe internal and external constraints under the Israeli occupation. Israel-imposed economic and social restrictions are constantly hindering inclusive and sustainable economic growth. These restrictions put various limitations on people and resources, causing economic stagnation in that area.</p><p>However, other internal factors also contribute to poor economic growth. Some of these include high poverty and unemployment rates and poor financial systems. For example, the unemployment rate in Gaza reached 49% last year, with a poverty rate as high as 56% in 2017.</p><p><br/></p>";
+  html = "";
   contentState = toState(this.html);
   state = {
-    // editorState: EditorState.createEmpty(),
     editorState: EditorState.createWithContent(this.contentState),
   };
+
+  async componentDidMount() {
+    this.html = await axios({
+      url: `http://localhost:3000/api/graphql`,
+      method: "post",
+      data: {
+        query: `query{
+          post(slug:"${this.props.slug}"){
+            uid 
+            title
+            slug 
+            text
+            price
+          }
+         }`,
+      },
+    });
+    if (this.html != null) {
+      this.html = this.html.data.data.post.text;
+    }
+    this.contentState = toState(this.html);
+    this.state = {
+      editorState: EditorState.createWithContent(this.contentState),
+    };
+  }
 
   private readonly plugins: DraftPlugin[] = [
     codeBlockPlugin(),
@@ -159,11 +207,11 @@ export default class TextEditor extends React.Component<{}, State> {
       var html = setRenderOptions(editorState.getCurrentContent());
       // onExport(editorState.getCurrentContent());
       const t = await axios({
-        url: `${process.env.SELF_URL}/api/graphql`,
+        url: `http://localhost:3000/api/graphql`,
         method: "post",
         data: {
           query: `mutation{
-            updatePost(slug:"hey",text:"${html}"){
+            updatePost(slug:"${this.props.slug}",text:"${html}"){
               uid 
               title
               slug 
