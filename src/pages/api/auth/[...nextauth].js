@@ -21,12 +21,10 @@ const options = {
         });
         token.name = name;
       }
-      console.log(token);
       return token;
     },
     async session({ session, token, user }) {
       // we need to add additional session params here
-      console.log("**********", session, token);
       session.user.id = token.id;
       session.user.name = token.name;
       return session;

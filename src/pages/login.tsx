@@ -6,7 +6,6 @@ import Layout from "../components/Layout";
 
 export default function LoginPage() {
   const { data: session1 } = useSession();
-  console.log("Session1:", session1);
   return (
     <Layout>
       <Login />
@@ -17,13 +16,10 @@ export default function LoginPage() {
 export async function getServerSideProps({
   req,
   res,
-  query: { callbackUrl = null, error = null },
+  query: { callbackUrl = "/", error = null },
 }) {
   const session = await getSession({ req });
   const providers = await getProviders();
-
-  console.log("Session:", session);
-  console.log("Providers", providers);
 
   if (session && res && callbackUrl) {
     res.writeHead(302, {

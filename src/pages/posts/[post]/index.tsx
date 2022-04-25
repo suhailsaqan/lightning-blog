@@ -185,8 +185,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   });
 
-  console.log(info);
-
   const { price } = info.data.data.postInfo;
 
   const createinvoice = await axios({
@@ -203,8 +201,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       }`,
     },
   });
-
-  console.log(createinvoice.data);
 
   const { uid, invoice_hash, invoice } = createinvoice.data.data.createInvoice;
 

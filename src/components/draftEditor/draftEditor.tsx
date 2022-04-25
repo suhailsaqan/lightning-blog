@@ -224,7 +224,6 @@ export default class TextEditor extends React.Component<{}, State> {
            }`,
         },
       });
-      console.log(t);
     }
 
     this.setState({
@@ -254,10 +253,7 @@ export function onExport(exporttext) {
 
   useEffect(() => {
     const { data } = useQuery(query);
-    console.log(data);
   }, []);
 
   var text = nhm.translate(html);
-
-  console.log(text);
 }

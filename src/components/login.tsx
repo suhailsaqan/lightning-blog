@@ -80,7 +80,6 @@ function LnQRAuth({ k1, encodedUrl, callbackUrl }) {
   const { data } = useQuery(query, { pollInterval: 1000 });
 
   if (data && data.lnAuth.pubkey) {
-    console.log("data.lnAuth:", data.lnAuth);
     signIn("credentials", { ...data.lnAuth, callbackUrl });
   }
 

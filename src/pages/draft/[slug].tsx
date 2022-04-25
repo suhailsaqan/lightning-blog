@@ -16,7 +16,6 @@ export type Props = {
 
 export default function Draft({ slug }: Props) {
   const { data: session } = useSession();
-  console.log(session);
 
   return (
     <Layout>
@@ -27,7 +26,6 @@ export default function Draft({ slug }: Props) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
-  console.log("getSession: ", session);
 
   if (!session) {
     return {
