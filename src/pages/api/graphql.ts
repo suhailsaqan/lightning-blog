@@ -7,7 +7,7 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 import resolvers from "../../api/resolvers";
 import models from "../../api/models";
 import typeDefs from "../../api/typeDefs";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 // import lnd from "../../api/lnd";
 
 export const config: PageConfig = {

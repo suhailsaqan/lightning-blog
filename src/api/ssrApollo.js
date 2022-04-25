@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { SchemaLink } from "@apollo/client/link/schema";
 import { mergeSchemas } from "@graphql-tools/schema";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import resolvers from "./resolvers";
 import typeDefs from "./typeDefs";
 import models from "./models";
@@ -34,7 +34,6 @@ export function getGetServerSideProps(
   foundField,
   requireVar
 ) {
-  console.log("it rannnnnnnnnnnnnnnnnnnnn");
   return async function ({ req, query: params }) {
     const client = await getSSRApolloClient(req);
     const vars = { ...params, ...variables };

@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/client";
+import { signIn } from "next-auth/react";
 import Button from "react-bootstrap/Button";
 import styles from "./login.module.css";
 import * as Yup from "yup";
@@ -77,9 +77,10 @@ function LnQRAuth({ k1, encodedUrl, callbackUrl }) {
       k1
     }
   }`;
-  const { data } = useQuery(query, { pollInterval: 2000 });
+  const { data } = useQuery(query, { pollInterval: 1000 });
 
   if (data && data.lnAuth.pubkey) {
+    console.log("data.lnAuth:", data.lnAuth);
     signIn("credentials", { ...data.lnAuth, callbackUrl });
   }
 

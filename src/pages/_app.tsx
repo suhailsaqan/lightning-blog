@@ -1,22 +1,19 @@
 import "normalize.css";
 import "../../public/styles/global.css";
-import { AppProps } from "next/app";
 import Head from "next/head";
 import { QueryClient, QueryClientProvider } from "react-query";
 import NextNProgress from "nextjs-progressbar";
-import { Provider } from "next-auth/client";
+import { SessionProvider } from "next-auth/react";
 import { ApolloProvider, gql } from "@apollo/client";
 import getApolloClient from "../lib/apollo";
 import { MeProvider } from "../components/me";
+import type { AppProps } from "next/app";
 
-export default function App({
-  Component,
-  pageProps: { session, ...props },
-}: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   const client = getApolloClient();
 
   if (typeof window !== "undefined") {
-    const { apollo, data } = props;
+    const { apollo, data } = pageProps;
     if (apollo) {
       client.writeQuery({
         query: gql`
@@ -28,7 +25,7 @@ export default function App({
     }
   }
 
-  const { me } = props;
+  const { me } = pageProps;
 
   return (
     <>
@@ -40,17 +37,17 @@ export default function App({
         showOnShallow
         options={{ showSpinner: false }}
       />
-      <Provider session={session}>
+      <SessionProvider session={pageProps.session}>
         <ApolloProvider client={client}>
           <MeProvider me={me}>
             <Head>
               <link rel="shortcut icon" href="/favicon.ico" />
               <title>{process.env["WEBPAGENAME"] || "Lightning Blog"}</title>
             </Head>
-            <Component {...props} />
+            <Component {...pageProps} />
           </MeProvider>
         </ApolloProvider>
-      </Provider>
+      </SessionProvider>
     </>
   );
 }

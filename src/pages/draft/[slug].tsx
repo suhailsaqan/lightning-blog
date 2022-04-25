@@ -2,6 +2,8 @@ import Layout from "../../components/Layout";
 import { GetServerSideProps } from "next";
 
 import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
 const TextEditor = dynamic(
   () => import("../../components/draftEditor/draftEditor"),
@@ -13,6 +15,9 @@ export type Props = {
 };
 
 export default function Draft({ slug }: Props) {
+  const { data: session } = useSession();
+  console.log(session);
+
   return (
     <Layout>
       <TextEditor slug={slug} />
@@ -20,11 +25,19 @@ export default function Draft({ slug }: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  params,
-  req,
-}) => {
-  const { slug } = params;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  console.log("getSession: ", session);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  const { slug } = context.params;
 
   return {
     props: { slug },

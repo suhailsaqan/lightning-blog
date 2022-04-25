@@ -1,21 +1,13 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
-import Adapters from "next-auth/adapters";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../../../lib/prisma";
 
 export default (req, res) => NextAuth(req, res, options);
 
 const options = {
   callbacks: {
-    /**
-     * @param  {object}  token     Decrypted JSON Web Token
-     * @param  {object}  user      User object      (only available on sign in)
-     * @param  {object}  account   Provider account (only available on sign in)
-     * @param  {object}  profile   Provider profile (only available on sign in)
-     * @param  {boolean} isNewUser True if new user (only available on sign in)
-     * @return {object}            JSON Web Token that will be saved
-     */
-    async jwt(token, user, account, profile, isNewUser) {
+    async jwt({ token, user, account, profile, isNewUser }) {
       // Add additional session params
       if (user?.id) {
         token.id = user.id;
@@ -29,17 +21,19 @@ const options = {
         });
         token.name = name;
       }
+      console.log(token);
       return token;
     },
-    async session(session, token) {
+    async session({ session, token, user }) {
       // we need to add additional session params here
+      console.log("**********", session, token);
       session.user.id = token.id;
       session.user.name = token.name;
       return session;
     },
   },
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Lightning",
       // The credentials is used to generate a suitable form on the sign in page.
@@ -72,13 +66,14 @@ const options = {
       },
     }),
   ],
-  adapter: Adapters.Prisma.Adapter({ prisma }),
+  adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
-  session: { jwt: true },
+  session: { strategy: "jwt" },
   jwt: {
     signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
   },
   pages: {
     signIn: "/login",
+    error: "/draft",
   },
 };
