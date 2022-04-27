@@ -21,6 +21,25 @@ model User {
   @@map(name: "users")
 }
 
+model Account {
+  id                 Int       @id @default(autoincrement())
+  createdAt          DateTime  @default(now()) @map(name: "created_at")
+  updatedAt          DateTime  @updatedAt @map(name: "updated_at")
+  compoundId         String    @unique @map(name: "compound_id")
+  userId             Int       @map(name: "user_id")
+  providerType       String    @map(name: "provider_type")
+  providerId         String    @map(name: "provider_id")
+  providerAccountId  String    @map(name: "provider_account_id")
+  refreshToken       String?   @map(name: "refresh_token")
+  accessToken        String?   @map(name: "access_token")
+  accessTokenExpires DateTime? @map(name: "access_token_expires")
+
+  @@index([providerAccountId])
+  @@index([providerId])
+  @@index([userId])
+  @@map(name: "accounts")
+}
+
 model Post {
   uid             String      @id 
   slug            String      @unique
