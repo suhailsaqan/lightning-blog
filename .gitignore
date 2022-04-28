@@ -34,3 +34,5 @@ yarn-error.log*
 .mdx-data
 prisma/dev.db
 *.db
+yarn.lock
+*.lock
