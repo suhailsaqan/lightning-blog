@@ -21,10 +21,17 @@ import { toState } from "./util/importer";
 import { UploadImageData } from "./util/uploadImage";
 import { SideButton, MediumDraftEditor } from "./MediumDraftEditor";
 import { nhm } from "./util/markdown";
-import { /*gql,*/ useMutation, useQuery } from "@apollo/client";
+import {
+  gql,
+  useApolloClient,
+  useLazyQuery,
+  useQuery,
+  useMutation,
+} from "@apollo/client";
 import axios from "axios";
 import { print } from "graphql";
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
+import { POST_FULL } from "../../fragments/posts";
 
 interface State {
   editorState: EditorState;
@@ -79,21 +86,26 @@ export default class TextEditor extends React.Component<{}, State> {
   };
 
   async componentDidMount() {
+    // const { data } = useQuery(POST_FULL, {
+    //   variables: { slug: this.props.slug },
+    // });
+    // this.html = "data";
     this.html = await axios({
       url: `http://localhost:3000/api/graphql`,
       method: "post",
       data: {
         query: `query{
           post(slug:"${this.props.slug}"){
-            uid 
+            uid
             title
-            slug 
+            slug
             text
             price
           }
          }`,
       },
     });
+    console.log(this.html);
     if (this.html) {
       this.html = this.html.data.data.post.text;
     }
@@ -209,21 +221,36 @@ export default class TextEditor extends React.Component<{}, State> {
     ) {
       var html = setRenderOptions(editorState.getCurrentContent());
       // onExport(editorState.getCurrentContent());
-      const t = await axios({
-        url: `http://localhost:3000/api/graphql`,
-        method: "post",
-        data: {
-          query: `mutation{
-            updatePost(slug:"${this.props.slug}",text:"${html}"){
-              uid 
-              title
-              slug 
-              text
-              price
-            }
-           }`,
-        },
-      });
+      // const t = await axios({
+      //   url: `http://localhost:3000/api/graphql`,
+      //   method: "post",
+      //   data: {
+      //     query: `mutation{
+      //       updatePost(slug:"${this.props.slug}",text:"${html}"){
+      //         uid
+      //         title
+      //         slug
+      //         text
+      //         price
+      //       }
+      //      }`,
+      //   },
+      // });
+      const query = gql`
+      mutation updatePost($slug: String, $text: String) {
+          updatePost(slug: ${this.props.slug}, text: $html){
+            uid
+            title
+            slug
+            text
+            price
+          }
+        }
+      `;
+
+      const data = useMutation(query);
+
+      console.log(data);
     }
 
     this.setState({
