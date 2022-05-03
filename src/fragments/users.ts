@@ -5,18 +5,6 @@ export const ME = gql`
     me {
       id
       name
-      sats
-      stacked
-      freePosts
-      freeComments
-      hasNewNotes
-      tipDefault
-      bio {
-        id
-      }
-      hasInvites
-      upvotePopover
-      tipPopover
     }
   }
 `;
