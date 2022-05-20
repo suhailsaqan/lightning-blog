@@ -36,3 +36,4 @@ prisma/dev.db
 *.db
 yarn.lock
 *.lock
+prisma/migrations/*/migration.sql
